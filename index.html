@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<title>Жеребкування</title>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #f4f4f4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+.box {
+  background: white;
+  padding: 25px;
+  border-radius: 10px;
+  width: 320px;
+  text-align: center;
+}
+select, button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  font-size: 16px;
+}
+.result {
+  margin-top: 20px;
+  font-size: 18px;
+  font-weight: bold;
+}
+</style>
+</head>
+
+<body>
+<div class="box">
+  <h2>Жеребкування</h2>
+
+  <select id="person">
+    <option value="">Обери себе</option>
+    <option value="A">Людина 1</option>
+    <option value="B">Людина 2</option>
+    <option value="C">Людина 3</option>
+    <option value="D">Людина 4</option>
+    <option value="E">Людина 5</option>
+    <option value="F">Людина 6</option>
+  </select>
+
+  <button onclick="roll()">🎲 Roll</button>
+
+  <div class="result" id="result"></div>
+</div>
+
+<script>
+const people = {
+  A: "Руслана",
+  B: "Костя",
+  C: "Анюта",
+  D: "Саша",
+  E: "Руслан",
+  F: "Альбіна"
+};
+
+// пари
+const pairs = {
+  A: "B",
+  B: "A",
+  C: "D",
+  D: "C",
+  E: "F",
+  F: "E"
+};
+
+function roll() {
+  const me = document.getElementById("person").value;
+  const resultDiv = document.getElementById("result");
+
+  if (!me) {
+    resultDiv.textContent = "❗ Спочатку обери себе";
+    return;
+  }
+
+  let options = Object.keys(people)
+    .filter(p => p !== me && p !== pairs[me]);
+
+  const random = options[Math.floor(Math.random() * options.length)];
+  resultDiv.textContent = "✅ Тобі випала: " + people[random];
+}
+</script>
+</body>
+</html>
